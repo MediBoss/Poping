@@ -12,6 +12,8 @@ import Foundation
 
 class GameScene: SKScene {
     
+    let scoreLabel = SKLabelNode(fontNamed: "Helvetica")
+    
     func makeBox() {
         
         // define a size for a box
@@ -41,7 +43,15 @@ class GameScene: SKScene {
         return Int(arc4random()) % number
     }
     
+    
+    
     override func didMove(to view: SKView) {
+        
+        addChild(scoreLabel)
+        scoreLabel.text = "Score : 0"
+        scoreLabel.fontSize = 30
+        
+        scoreLabel.position.x = 
         
         // make a repeating action that will call the method makeBox
         let wait = SKAction.wait(forDuration: 1.5)
@@ -56,6 +66,20 @@ class GameScene: SKScene {
         
         run(rep)
 
+    }
+    
+    // when a user touches the screen
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        var score = 0
+        if let touch = touches.first {
+            // get the location of this touch in the scene
+            let location = touch.location(in: self)
+            let node = atPoint(location)
+            if node.name == "box" {
+                node.removeFromParent()
+                score += 1
+            }
+        }
     }
     
 }
