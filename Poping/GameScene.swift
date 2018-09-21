@@ -18,18 +18,28 @@ class GameScene: SKScene {
     var timer = Timer()
     var playerPoints = 0
     var pointsLabel = SKLabelNode()
+    var bubbleSize = CGSize(width: 30, height: 30)
     
     
     
     override func didMove(to view: SKView) {
         
+        self.backgroundColor = UIColor.black
+        
     }
     
     // this function creates a single bubble
-    func makeBubble() -> SKShapeNode{
+    func makeBubble(){
         
+        // unwraps the scene and throws an error if the scene is undefined
+        guard let scene = scene else {fatalError()}
         
-        
+        let color = UIColor(hue: 1.0, saturation: 1, brightness: 1, alpha: 1)
+        let bubble = SKSpriteNode(texture: nil, color: color, size: bubbleSize)
+        let bubbleXPosition = randomize(number: 0) // get back to this later
+        bubble.name = "bubble"
+        bubble.position = CGPoint(x: bubbleXPosition, y: 0)
+        addChild(bubble)
         
         
     }
@@ -42,7 +52,8 @@ class GameScene: SKScene {
         
         // making the point label pretty
         pointsLabel.fontSize = 30
-        pointsLabel.color = UIColor.white
+        pointsLabel.color = SKColor.white
+        pointsLabel.fontName = "helvetica"
         updatePoints(points: playerPoints)
         
         // positioning the point label
@@ -67,7 +78,29 @@ class GameScene: SKScene {
         pointsLabel.text = "Score : \(points)"
     }
     
-    func gameOver(status: (lost: Bool, won: Bool)){
+    func gameOver(status: (over: Bool, won: Bool)){
+        
+        guard status.over else {return}
+        
+        // ending the timer
+        timer.invalidate()
+        
+        let message = status.won ? "You Won! 😁" : "You Lost 🙁"
+        
+        let view = SKShapeNode(rectOf: CGSize(width: 300, height: 250))
+        view.fillColor = SKColor.white
+        view.zPosition = 50
+        view.position = self.view!.center
+        addChild(view)
+        
+        // Game Status Label
+        let gameStatusLabel = SKLabelNode()
+        gameStatusLabel.text = message
+        gameStatusLabel.fontSize = 40
+        gameStatusLabel.fontName = "helvetica"
+        gameStatusLabel.color = SKColor.black
+        gameStatusLabel.position = CGPoint(x: 0, y: 60)
+        view.addChild(gameStatusLabel)
         
     }
     
@@ -79,10 +112,13 @@ class GameScene: SKScene {
         
     }
     
-    func isGameOver() -> (lost: Bool, won: Bool){
+    func isGameOver() -> (over: Bool, won: Bool){
         
     }
     
+    func randomize(number: Int){
+        return arc4random_uniform(number)
+    }
     
 }
 
