@@ -28,17 +28,11 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
         self.backgroundColor = UIColor.black
-        pointsLabel.text = "Current Score: \(playerPoints)"
-        pointsLabel.position = CGPoint(x: (self.size.width/2), y: (self.size.height - 80))
-        pointsLabel.fontColor = .cyan
-        pointsLabel.fontSize = 30
-        
-        addChild(pointsLabel)
-        
-        //setUpPointsLabel()
+        setUpPointsLabel()
     
     }
     
+    // Function to update the status of the game
     override func update(_ currentTime: TimeInterval) {
      
          // the game is not running...
@@ -62,8 +56,6 @@ class GameScene: SKScene {
                 scene.scaleMode = .aspectFill
                 view.presentScene(scene)
                 view.ignoresSiblingOrder = false
-                //view.showsFPS = true
-                //view.showsNodeCount = true
             }
         }else if currentGameState == .gameOnGoing{
             if let touch = touches.first {
@@ -91,35 +83,20 @@ class GameScene: SKScene {
         bubble.position = CGPoint(x: bubbleXposition, y: 0)
         addChild(bubble)
         
-        
-        let moveBubbleUp = SKAction.moveTo(y: size.height, duration: gameSpeed)
-        let sequence = SKAction.sequence([moveBubbleUp, .removeFromParent()])
-        
-        bubble.run(sequence){
-            self.playerPoints -= 1
-            self.updatePlayerPointLabel()
-        }
-        
+        moveBubbleToTop(bubble: bubble)
     }
-    /*
+    
     // Function to set up the label on the screen
     func setUpPointsLabel(){
         
-        if let view = self.view{
-            // making the point label pretty
-            pointsLabel.fontSize = 30
-            pointsLabel.color = SKColor.white
-            updatePoints(points: playerPoints)
-            
-            // positioning the point label
-            let xPositionOfLabel = pointsLabel.frame.size.width
-            let yPositionOfLabel = (view.frame.size.height)
-            let playerPointsPosition = CGPoint(x: xPositionOfLabel, y: yPositionOfLabel)
-            pointsLabel.position = playerPointsPosition
-            addChild(pointsLabel)
-        }
+        pointsLabel.text = "Current Score: \(playerPoints)"
+        pointsLabel.position = CGPoint(x: (self.size.width/2), y: (self.size.height - 80))
+        pointsLabel.fontColor = .cyan
+        pointsLabel.fontSize = 30
+        
+        addChild(pointsLabel)
     }
-    */
+ 
     // Function to set up the game over label
     func setUpGameOverLabel(){
         
@@ -135,7 +112,6 @@ class GameScene: SKScene {
     
     
     // Function to update the score label
-    
     func updatePlayerPointLabel(){
         
         if playerPoints < 0{
@@ -146,14 +122,16 @@ class GameScene: SKScene {
     }
     
     
-    
-    func generateBubbleIn(){
+    //Function to move the bubble class
+    func moveBubbleToTop(bubble: SKSpriteNode){
         
+        let moveBubbleUp = SKAction.moveTo(y: size.height, duration: gameSpeed)
+        let sequence = SKAction.sequence([moveBubbleUp, .removeFromParent()])
         
-    }
-    
-    func moveBubbleToTop(bubble: SKShapeNode){
-        
+        bubble.run(sequence){
+            self.playerPoints -= 1
+            self.updatePlayerPointLabel()
+        }
     }
     
     // Function to update the user points on the screen
@@ -170,44 +148,6 @@ class GameScene: SKScene {
         setUpGameOverLabel()
     
     }
-    
-  /*
-    func touchedABubble(touch: UITouch) -> SKNode? {
-        
-        let positionInScene = touch.location(in: self)
-        let touchedNode = self.atPoint(positionInScene)
-        
-        guard touchedNode.name == "Bubble" else {return nil}
-        
-        return touchedNode
-    }
-    
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        guard let touch = touches.first else {return}
-        
-        handleTouch(touch: touch)
-    }
-    
-    // when the bubble has been taped
-    func handleTouch(touch: UITouch){
-        
-        guard let bubbleTouched = touchedABubble(touch: touch) else {return}
-    
-        playerPoints += 1
-        updatePoints(points: playerPoints)
-        bubbleTouched.removeFromParent()
-    }
-    
-    func isGameOver() -> (over: Bool, won: Bool){
-        
-    }
-    
-    func randomize(number: Int){
-        return arc4random_uniform(UIInt32(number))
-    }
-    */
 }
 
 
