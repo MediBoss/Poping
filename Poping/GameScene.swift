@@ -28,7 +28,14 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
         self.backgroundColor = UIColor.black
-        setUpPointsLabel()
+        pointsLabel.text = "Current Score: \(playerPoints)"
+        pointsLabel.position = CGPoint(x: (self.size.width/2), y: (self.size.height - 80))
+        pointsLabel.fontColor = .cyan
+        pointsLabel.fontSize = 30
+        
+        addChild(pointsLabel)
+        
+        //setUpPointsLabel()
     
     }
     
@@ -94,7 +101,7 @@ class GameScene: SKScene {
         }
         
     }
-    
+    /*
     // Function to set up the label on the screen
     func setUpPointsLabel(){
         
@@ -112,7 +119,7 @@ class GameScene: SKScene {
             addChild(pointsLabel)
         }
     }
-    
+    */
     // Function to set up the game over label
     func setUpGameOverLabel(){
         
