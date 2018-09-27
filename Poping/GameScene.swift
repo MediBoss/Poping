@@ -16,6 +16,7 @@ class GameScene: SKScene {
     
     var gameTimer = Timer()
     var playerPoints = 0
+    var highScores: [Int] = []
     let bubbleColor = UIColor(hue: CGFloat.random(in: 0...1), saturation: 1, brightness: 1, alpha: 1)
     let bubbleSize = CGSize(width: 30, height: 30)
     var currentGameState: GameState = .gameOnGoing
@@ -89,7 +90,8 @@ class GameScene: SKScene {
         pointsLabel.position = position
         addChild(pointsLabel)
     }
- 
+    
+
     // Function to set up the game over label
     func setUpGameOverLabel(){
         
@@ -132,15 +134,15 @@ class GameScene: SKScene {
         pointsLabel.text = "Current Score : \(points)"
     }
     
-    
+
     // Function to handle events when the game is over
     func gameOver(){
         
         currentGameState = .gameOver
         removeFromParent()
         setUpGameOverLabel()
-    
     }
+    
 }
 
 
