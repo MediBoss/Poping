@@ -7,3 +7,26 @@
 //
 
 import Foundation
+import SpriteKit
+
+class ScoreLabel: SKLabelNode{
+    
+    init(text: String, fontColor: UIColor, fontSize: CGFloat, fontName: String){
+        
+        super.init()
+        self.text = text
+        self.fontColor = fontColor
+        self.fontName = fontName
+        self.fontSize = fontSize
+    }
+    
+    // function to update the score board
+    func updateScore(currentScore: Int){
+        
+        self.text = "Score : \(currentScore)"
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

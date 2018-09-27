@@ -17,7 +17,8 @@ class GameScene: SKScene {
     var gameTimer = Timer()
     var playerPoints = 0
     var pointsLabel = SKLabelNode()
-    var bubbleSize = CGSize(width: 30, height: 30)
+    let bubbleColor = UIColor(hue: CGFloat.random(in: 0...1), saturation: 1, brightness: 1, alpha: 1)
+    let bubbleSize = CGSize(width: 30, height: 30)
     var currentGameState: GameState = .gameOnGoing
     var gameCounter = 0
     let gameSpeed = Double(Int.random(in: 1...15))
@@ -28,6 +29,7 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         
         self.backgroundColor = UIColor.black
+        makeBubble()
         setUpPointsLabel()
     
     }
@@ -74,13 +76,9 @@ class GameScene: SKScene {
     // this function creates a single bubble
     func makeBubble(){
         
-        let bubbleColor = UIColor(hue: CGFloat.random(in: 0...1), saturation: 1, brightness: 1, alpha: 1)
-        let bubbleXposition = Int.random(in: 30...Int(self.size.width - 30))
-        let bubble = SKSpriteNode(texture: nil, color: bubbleColor, size: bubbleSize)
+        let color = UIColor(hue: CGFloat.random(in: 0...1), saturation: 1, brightness: 1, alpha: 1)
+        let bubble = Bubble(name: "bubble", size: bubbleSize, color: bubbleColor, screenSize: self.size)
         
-        
-        bubble.name = "bubble"
-        bubble.position = CGPoint(x: bubbleXposition, y: 0)
         addChild(bubble)
         
         moveBubbleToTop(bubble: bubble)
