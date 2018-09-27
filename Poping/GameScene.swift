@@ -77,7 +77,7 @@ class GameScene: SKScene {
     func makeBubble(){
         
         let color = UIColor(hue: CGFloat.random(in: 0...1), saturation: 1, brightness: 1, alpha: 1)
-        let bubble = Bubble(name: "bubble", radius: 15, color: bubbleColor, screenSize: self.size)
+        let bubble = Bubble(name: "bubble", radius: 20, color: bubbleColor, screenSize: self.size)
         addChild(bubble)
         moveBubbleToTop(bubble: bubble)
     }

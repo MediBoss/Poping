@@ -21,6 +21,7 @@ class Bubble: SKShapeNode{
 
         //self.init()
         self.init(circleOfRadius: radius)
+        self.fillColor = color
         self.name = name
         setUp(screenWidth: screenSize.width)
     }
