@@ -9,30 +9,34 @@
 import Foundation
 import UIKit
 import SpriteKit
-import GameplayKit
 
-class Bubble: SKSpriteNode{
+class Bubble: SKShapeNode{
+
     
-    //var screenSize: CGSize
+    override init(){
+        super.init()
+    }
     
-    init(name: String, size:CGSize, color: UIColor, screenSize: CGSize) {
-        super.init(texture: nil, color: color, size: size)
+    convenience init(name: String, radius: CGFloat, color: UIColor, screenSize: CGSize) {
+
+        //self.init()
+        self.init(circleOfRadius: radius)
         self.name = name
-        
+        setUp(screenWidth: screenSize.width)
     }
     
     
-    func setUp(screenSize: CGSize){
+    func setUp(screenWidth: CGFloat){
         
-        let x = Int.random(in: 20...Int(screenSize.width - 20))
+        let x = Int.random(in: 20...Int(screenWidth - 20))
         self.position = CGPoint(x: x, y: 0)
     }
     
-
+/*
     func random(n: Int) -> Int{
         return Int(arc4random()) % n
     }
-    
+    */
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

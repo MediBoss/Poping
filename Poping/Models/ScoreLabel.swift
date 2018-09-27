@@ -11,6 +11,8 @@ import SpriteKit
 
 class ScoreLabel: SKLabelNode{
     
+    var currentScore = 0
+    
     init(text: String, fontColor: UIColor, fontSize: CGFloat, fontName: String){
         
         super.init()
@@ -18,12 +20,18 @@ class ScoreLabel: SKLabelNode{
         self.fontColor = fontColor
         self.fontName = fontName
         self.fontSize = fontSize
+        //self.position = position
     }
     
-    // function to update the score board
-    func updateScore(currentScore: Int){
+    /* Function to update the score board
+     @param points: The current points of the player
+    */
+    func updateScore(points: Int){
+        currentScore += points
+    }
+    
+    func updateScreen(){
         
-        self.text = "Score : \(currentScore)"
     }
     
     required init?(coder aDecoder: NSCoder) {

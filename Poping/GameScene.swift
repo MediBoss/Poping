@@ -16,12 +16,12 @@ class GameScene: SKScene {
     
     var gameTimer = Timer()
     var playerPoints = 0
-    var pointsLabel = SKLabelNode()
     let bubbleColor = UIColor(hue: CGFloat.random(in: 0...1), saturation: 1, brightness: 1, alpha: 1)
     let bubbleSize = CGSize(width: 30, height: 30)
     var currentGameState: GameState = .gameOnGoing
     var gameCounter = 0
     let gameSpeed = Double(Int.random(in: 1...15))
+    var pointsLabel = ScoreLabel(text: "Current Score: 0", fontColor: .cyan, fontSize: 30, fontName: "Helvetica")
     
     
     
@@ -77,21 +77,16 @@ class GameScene: SKScene {
     func makeBubble(){
         
         let color = UIColor(hue: CGFloat.random(in: 0...1), saturation: 1, brightness: 1, alpha: 1)
-        let bubble = Bubble(name: "bubble", size: bubbleSize, color: bubbleColor, screenSize: self.size)
-        
+        let bubble = Bubble(name: "bubble", radius: 15, color: bubbleColor, screenSize: self.size)
         addChild(bubble)
-        
         moveBubbleToTop(bubble: bubble)
     }
     
     // Function to set up the label on the screen
     func setUpPointsLabel(){
-        
-        pointsLabel.text = "Current Score: \(playerPoints)"
-        pointsLabel.position = CGPoint(x: (self.size.width/2), y: (self.size.height - 80))
-        pointsLabel.fontColor = .cyan
-        pointsLabel.fontSize = 30
-        
+    
+        let position = CGPoint(x: (self.size.width/2), y: (self.size.height - 80))
+        pointsLabel.position = position
         addChild(pointsLabel)
     }
  
@@ -115,13 +110,13 @@ class GameScene: SKScene {
         if playerPoints < 0{
             gameOver()
         }else{
-            pointsLabel.text = "Current Score : \(playerPoints)"
+            updatePoints(points: playerPoints)
         }
     }
     
     
     //Function to move the bubble class
-    func moveBubbleToTop(bubble: SKSpriteNode){
+    func moveBubbleToTop(bubble: SKShapeNode){
         
         let moveBubbleUp = SKAction.moveTo(y: size.height, duration: gameSpeed)
         let sequence = SKAction.sequence([moveBubbleUp, .removeFromParent()])
@@ -134,7 +129,7 @@ class GameScene: SKScene {
     
     // Function to update the user points on the screen
     func updatePoints(points: Int){
-        pointsLabel.text = "Score : \(points)"
+        pointsLabel.text = "Current Score : \(points)"
     }
     
     
