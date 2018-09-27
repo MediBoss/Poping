@@ -1,5 +1,5 @@
 //
-//  GameState.swift
+//  Bubble.swift
 //  Poping
 //
 //  Created by Medi Assumani on 9/25/18.
@@ -7,9 +7,8 @@
 //
 
 import Foundation
+import UIKit
 
-enum GameState{
+class Bubble{
     
-    case gameOnGoing
-    case gameOver
 }
